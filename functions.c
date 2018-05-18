@@ -184,6 +184,25 @@ void escreve_lcd(char TECLA)
 	E = 1;
 	E = 0;
 
-	atraso();   !!!!!!!!!!!!!!!!!!!
+	atraso(); 
 }
 
+//função delay para o LCD
+void atraso() //50us
+{
+	TF0 = 0;
+	TMOD = 2;
+	TL0 = 210;  //Ttimer=1.085 us --> 46clocks --> 256-46=210.
+	TR0 = 1;
+	while (TF0==0);
+}
+
+//função delay para o lcd 
+void atraso_display() //2ms = 40*atraso
+{
+	int disp_delay=0;
+	do{
+	atraso();
+	disp_delay ++;
+	}while (disp_delay==40);
+}
