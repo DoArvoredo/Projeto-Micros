@@ -1,6 +1,9 @@
 #ifndef FUNCTIONS
 #define FUNCTIONS
 
+void setup_timer0();
+void setup_timer2();
+void relogio ();
 char varredura_teclado(void);
 char debouncing(char PINO);
 char teclado();
