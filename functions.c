@@ -150,28 +150,28 @@ void LCD_init (void)
 
 	E = 1;
 	E = 0;
-	atraso();   !!!!!!!!!!!!!!!!!!
+	atraso();   // 50us
 
 	//controle LCD
 	P1 = 0xF;
 
 	E = 1;
 	E = 0;
-	atraso();   !!!!!!!!!!!!!!!!
+	atraso();   
 
 	//exibição LCD
 	P1 = 0x6;
 
 	E = 1;
 	E = 0;
-	atraso();   !!!!!!!!!!!!!!!!!!
+	atraso();   
 
 	//limpa display
 	P1 = 1;
 
 	E = 1;
 	E = 0;
-	atraso_display();  !!!!!!!!!!!!!!!
+	atraso_display();  //2ms
 
 }
 
