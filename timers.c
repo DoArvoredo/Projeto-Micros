@@ -1,13 +1,11 @@
 #include <reg52.h>
 
-int milissegundos, segundos, minutos, horas;
-
-//setup timer 2
+//setup timer 2 - 10ms
 void setup_timer2()
 {
 	T2CON = 4;  //recarga automática - nao sei se tá certo, MESMO TR2
-	RCAP2H =0xFC;
-	RCAP2L = 0x66;
+	RCAP2H =0xB8;
+	RCAP2L = 0x00;
 	TH1= RCAP2H;
 	TL1= RCAP2L;
 	EA = 1; //enable global interrupt.
@@ -16,20 +14,13 @@ void setup_timer2()
 }
 
 //relógio usando o timer 2
-void timer2_clock () interrupt 5
+void relogio () interrupt 5
 {
-	int flag_ms = 0;
-	flag_ms ++;
-	TF2 = 0;
-}
-
-void relogio () //REVER AQUI
-{
-	int milissegundos, segundos, minutos, horas;
+	int dezmili, segundos, minutos, horas = 0; //iniciar no .c principal
 	milissegundos++;
-	if(milissegundos == 1000)//entra a cada segundo
+	if(dezmili == 100)//entra a cada segundo
 	{
-		milissegundos = 0;
+		dezmili = 0;
 		segundos ++;
 		if(segundos == 60)
 		{
@@ -44,7 +35,9 @@ void relogio () //REVER AQUI
 			}
 		}
 	}
+	TF2 = 0;
 }
+
 
 //setup timer 0
 void setup_timer0(){
