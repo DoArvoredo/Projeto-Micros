@@ -1,4 +1,4 @@
-#include <reg51.h>;
+#include <reg52.h>;
 #include "functions.h"
 
 char TECLA;
@@ -6,15 +6,22 @@ char TECLA;
 sbit pino1 = P1^0;
 sbit pino2 = P1^1;
 sbit pino3 = P1^2;
+sbit pino0_4 = P0^4;
+sbit pino0_5 = P0^5;
+sbit pino0_6 = P0^6;
+sbit pino0_7 = P0^7;
+
+
+char PINO;
 
 char varredura_teclado()
 {
     //varredura primeira linha
 
-   P0^4 = 1;
-   P0^5 = 1;
-   P0^6 = 1;
-   P0^7 = 0;
+   pino0_4 = 1;
+   pino0_5 = 1;
+   pino0_6 = 1;
+   pino0_7 = 0;
 
    if(P0^0 == 0)
    {
@@ -34,10 +41,10 @@ char varredura_teclado()
 
    //varredura segunda linha
 
-   P0^4 = 1;
-   P0^5 = 1;
-   P0^6 = 0;
-   P0^7 = 1;
+   pino0_4 = 1;
+   pino0_5 = 1;
+   pino0_6 = 0;
+   pino0_7 = 1;
 
    if(P0^0 == 0)
    {
@@ -57,10 +64,10 @@ char varredura_teclado()
 
    //varredura terceira linha
 
-   P0^4 = 1;
-   P0^5 = 0;
-   P0^6 = 1;
-   P0^7 = 1;
+   pino0_4 = 1;
+   pino0_5 = 0;
+   pino0_6 = 1;
+   pino0_7 = 1;
 
    if(P0^0 == 0)
    {
@@ -80,10 +87,10 @@ char varredura_teclado()
 
    //varredura quarta linha
 
-   P0^4 = 0;
-   P0^5 = 1;
-   P0^6 = 1;
-   P0^7 = 1;
+   pino0_4 = 0;
+   pino0_5 = 1;
+   pino0_6 = 1;
+   pino0_7 = 1;
 
    if(P0^0 == 0)
    {
@@ -225,6 +232,7 @@ void escreve_lcd(char TECLA)
 	E = 0;
 
 	atraso(); 
+	while(1);
 }
 
 	
