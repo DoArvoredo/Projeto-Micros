@@ -13,7 +13,6 @@ void setup_timer2()
 	EA = 1; //enable global interrupt.
 	//TR2=1; // run control flag set by software
 	ET2=1; // enable interrupt timer 2
-	while(1); //NÃO TENHO CERTEZA
 }
 
 //relógio usando o timer 2
