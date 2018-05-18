@@ -232,13 +232,13 @@ void escreve_lcd(char TECLA)
 //setup timer 2 - 10ms
 void setup_timer2()
 {
-	T2CON = 4;  //recarga automática - nao sei se tá certo, MESMO TR2
+	T2CON = 0;
 	RCAP2H =0xB8;
 	RCAP2L = 0x00;
 	TH1= RCAP2H;
 	TL1= RCAP2L;
 	EA = 1; //enable global interrupt.
-	//TR2=1; // run control flag set by software
+	TR2=1; // run control flag set by software
 	ET2=1; // enable interrupt timer 2
 }
 
