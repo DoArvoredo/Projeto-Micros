@@ -1,6 +1,3 @@
-#ifndef FUNCTIONS
-#define FUNCTIONS
-
 void setup_timer0();
 void setup_timer2();
 void relogio ();
@@ -12,6 +9,3 @@ void LCD_init (void);
 void escreve_lcd(char TECLA);
 void atraso();
 void atraso_display();
-
-
-#endif // FUNCTIONS
