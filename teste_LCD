@@ -1,0 +1,89 @@
+#include <reg52.h>
+
+sbit RS = P3^6;
+sbit E = P3^7;
+
+//setup timer 0
+void setup_timer0()
+{
+	TMOD = 2;
+	TH0 = 163;
+	TL0 = 163;
+	EA = 1;
+	ET0 = 1;
+	TR0 = 1;
+}
+	
+//função delay para o LCD
+void atraso() //50us
+{
+	TF0 = 0;
+	TMOD = 2;
+	TL0 = 210;  //Ttimer=1.085 us --> 46clocks --> 256-46=210.
+	TR0 = 1;
+	while (TF0==0);
+}
+
+//função delay para o lcd 
+void atraso_display() //2ms = 40*atraso
+{
+	int disp_delay=0;
+	do{
+	atraso();
+	disp_delay ++;
+	}while (disp_delay==40);
+}
+
+void LCD_init (void)
+{
+	RS = 0;
+
+	//modo LCD
+	P1 = 0x38;
+
+	E = 1;
+	E = 0;
+	atraso();   // 50us
+
+	//controle LCD
+	P1 = 0xF;
+
+	E = 1;
+	E = 0;
+	atraso();   
+
+	//exibição LCD
+	P1 = 0x6;
+
+	E = 1;
+	E = 0;
+	atraso();   
+
+	//limpa display
+	P1 = 1;
+
+	E = 1;
+	E = 0;
+	atraso_display();  //2ms
+
+}
+
+void escreve_lcd(char TECLA)
+{
+	RS = 1;
+
+	P1 = TECLA;
+
+	E = 1;
+	E = 0;
+
+	atraso(); 
+}
+
+
+void main()
+{
+  LCD_init ();
+  escreve_lcd('G');
+	while(1);
+}
