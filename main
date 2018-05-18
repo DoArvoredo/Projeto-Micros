@@ -1,9 +1,12 @@
-#include <reg51.h>
+#include <reg52.h>
 #inlcude "functions.h"
 
 void main()
 {
-
+  void setup_timer0();
+  void setup_timer2();
+  LCD_init (void);
+  escreve_lcd('G');
 
 
 }
