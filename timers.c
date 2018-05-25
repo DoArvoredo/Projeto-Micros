@@ -1,23 +1,46 @@
 #include <reg52.h>
+#include "timers.h"
 
+
+//funÁ„o delay para o LCD
+void atraso() //50us
+{
+	TF0 = 0;
+	TMOD = 2;
+	TL0 = 210;  //Ttimer=1.085 us --> 46clocks --> 256-46=210.
+	TR0 = 1;
+	while (TF0==0);
+}
+
+//funÁ„o delay para o lcd 
+void atraso_display() //2ms = 40*atraso
+{
+	int disp_delay=0;
+	do{
+	atraso();
+	disp_delay ++;
+	}while (disp_delay==40);
+}
+	
+	
 //setup timer 2 - 10ms
 void setup_timer2()
 {
-	T2CON = 4;  //recarga autom√°tica - nao sei se t√° certo, MESMO TR2
+	T2CON = 0;
 	RCAP2H =0xB8;
 	RCAP2L = 0x00;
-	TH1= RCAP2H;
-	TL1= RCAP2L;
+	TH2= RCAP2H;
+	TL2= RCAP2L;
 	EA = 1; //enable global interrupt.
-	//TR2=1; // run control flag set by software
+	TR2=1; // run control flag set by software
 	ET2=1; // enable interrupt timer 2
 }
 
-//rel√≥gio usando o timer 2
+//relÛgio usando o timer 2
 void relogio () interrupt 5
 {
 	int dezmili, segundos, minutos, horas = 0; //iniciar no .c principal
-	milissegundos++;
+	dezmili++;
 	if(dezmili == 100)//entra a cada segundo
 	{
 		dezmili = 0;
@@ -38,34 +61,11 @@ void relogio () interrupt 5
 	TF2 = 0;
 }
 
-
-//setup timer 0
-void setup_timer0(){
-//configure timer 0
-TMOD = 2;
-TH0 = 163;
-TL0 = 163;
-EA = 1;
-ET0 = 1;
-TR0 = 1;
-}
-
-//fun√ß√£o delay para o LCD
-void atraso() //50us
+void timer_serial ()
 {
-	TF0 = 0;
+	TF1 = 0;
 	TMOD = 2;
-	TL0 = 210;  //Ttimer=1.085 us --> 46clocks --> 256-46=210.
-	TR0 = 1;
+	TL1 = 253;  //para baud rate 19200
+	TR1 = 1;
 	while (TF0==0);
-}
-
-//fun√ß√£o delay para o lcd 
-void atraso_display() //2ms = 40*atraso
-{
-	int disp_delay=0;
-	do{
-	atraso();
-	disp_delay ++;
-	}while (disp_delay==40);
 }
